@@ -1,25 +1,44 @@
 import React, { useState } from "react";
 import { View, Text, Image, ScrollView, FlatList } from "react-native";
+import { Picker } from "@react-native-community/picker";
 import SteveJobs from "./src/components/SteveJobs";
 import Timer from "./src/components/Timer";
 import Pessoa from "./src/components/Pessoa";
 
 export default function App(){
-
-  const [data, setData] = useState([
-    { id: 1, name: "Steve Jobs", image: "https://sujeitoprogramador.com/steve.png", description: "O Steve Jobs é um empresário americano e fundador da Apple Inc. que foi o primeiro empresário americano a ser patenteado." },
-    { id: 2, name: "Tim Cook", image: "https://t2.tudocdn.net/348107?w=1920", description: "O Tim Cook é um empresário americano e fundador da Apple Inc. que foi o primeiro empresário americano a ser patenteado." },
-    { id: 3, name: "Mark Zuckerberg", image: "https://www.infomoney.com.br/wp-content/uploads/2019/06/mark-zuckerberg-bloomberg-1.jpg?fit=900%2C600&quality=50&strip=all", description: "O Mark Zuckerberg é um empresário americano e fundador da Facebook, uma empresa de análise de marketing e de pesquisa de dados." },
-    { id: 4, name: "Larry Page", image: "https://www.infomoney.com.br/wp-content/uploads/2020/04/GettyImages-144948917-1.jpg?fit=1280%2C875&quality=50&strip=all", description: "O Larry Page é um empresário americano e fundador da Google, uma empresa de pesquisa e desenvolvimento de software." },
+  const [pizzas, setPizzas] = useState([
+    { id: 1, name: "Pizza de Calabresa", price: "R$ 22,00" },
+    { id: 2, name: "Pizza de Mussarela", price: "R$ 24,00" },
+    { id: 3, name: "Pizza de Presunto", price: "R$ 25,00" },
+    { id: 4, name: "Pizza de Portuguesa", price: "R$ 26,00" },
+    { id: 5, name: "Pizza de Quatro Queijos", price: "R$ 27,00" },
+    { id: 6, name: "Frango com Catupiry", price: "R$ 28,00" },
   ])
+  const [pizza, setPizza] = useState(1);
 
     return (
-      <View style={{flex:1, backgroundColor:'#f2f2d1' }}>
-        <FlatList
-          keyExtractor={item => item.id.toString()}
-          data={data}
-          renderItem={ ({item}) => <Pessoa data={item}/>}
-        />
+      <View style={{flex:1, backgroundColor:'#f1f1f1' }}>
+        <Text style={{fontSize:30, fontWeight:'bold', color:'#000', marginTop:15, textAlign: "center"}}>
+          Menu Pizza
+        </Text>
+        <Picker
+          selectedValue={pizza}
+          onValueChange={(itemValue) => setPizza(itemValue)}
+        >
+          {pizzas.map((pizza) => (
+            <Picker.Item
+              key={pizza.id}
+              label={pizza.name}
+              value={pizza.id}
+            />
+          ))}
+        </Picker>
+        <Text style={{fontSize:18, color:'#3ce', marginTop:15, textAlign: "center"}}>
+          Você escolheu: {pizzas[pizza - 1].name}
+        </Text>
+        <Text style={{fontSize:18, fontWeight: 'bold', color:'#3ce', marginTop:15, textAlign: "center"}}>
+          R$: {pizzas[pizza - 1].price}
+        </Text>
       </View>
     );
   }
