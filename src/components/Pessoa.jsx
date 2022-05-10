@@ -8,6 +8,7 @@ export default function Pessoa({data}){
         <View style={{flex:1, margin:10,  alignItems: 'center'}}>
           <Image source={{uri:data.image}} style={{width:100, height:100}}/>
         </View>
+        <Text>{data.description}</Text>
       </View>
     )
 }
